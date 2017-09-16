@@ -89,7 +89,28 @@ Public Class bittrexWrapper
 
 
     End Function 'Receive Ticker data
+    Public Function getOrderbook(ByVal market As String, ByVal type As String) As bookorder()
+        Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getorderbook?market=" & market & "&type=" & type))
+        Try
+            If json.SelectToken("success").ToString() = "True" Then
+                Dim count As Integer = 0
+                Dim orders(json.SelectToken("result").Count) As bookorder
 
+
+                For Each order In json.SelectToken("result")
+                    orders(count) = New bookorder(Convert.ToDouble(order.SelectToken("Quantity")), Convert.ToDouble(order.SelectToken("Rate")))
+                    count = count + 1
+                Next
+                Return orders
+            Else
+                MsgBox("Error: " & json.SelectToken("message").ToString)
+                Return Nothing
+            End If
+        Catch ex As Exception
+            MsgBox("Error parsing Orderbook JSON")
+            Return Nothing
+        End Try
+    End Function 'Get Orderbook for a specific market
 
 
 

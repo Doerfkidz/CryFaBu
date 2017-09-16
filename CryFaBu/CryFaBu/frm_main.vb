@@ -17,7 +17,6 @@ Public Class frm_main
 
 
         Dim wrapper As bittrexWrapper = New bittrexWrapper
-        MsgBox(wrapper.getTicker("BTC", "USD").ToString)
-
+        MsgBox(wrapper.getOrderbook("USDT-BTC", "buy").Count)
     End Sub
 End Class
