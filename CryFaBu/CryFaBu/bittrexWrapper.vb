@@ -5,7 +5,7 @@ Public Class bittrexWrapper
     Sub New()
 
     End Sub
-    Public Function getJson(ByVal url As String) As String
+    Private Function getJson(ByVal url As String) As String
 
         Try
             Dim webClient As New System.Net.WebClient
@@ -14,7 +14,7 @@ Public Class bittrexWrapper
             Return result
         Catch ex As Exception
             MsgBox("Error receiving JSON")
-            Return "{" + Chr(34) + "success" + Chr(34) + ": false}"
+            Return "{" + Chr(34) + "success" + Chr(34) + ": false," + Chr(34) + "message" + Chr(34) + ":" + Chr(34) + "Error receiving JSON" + Chr(34) + "}"
         End Try
 
     End Function 'Get json from API endpoint
@@ -24,10 +24,12 @@ Public Class bittrexWrapper
 
             Dim count As Integer = 0
             Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getmarkets  "))
-            Dim markets(json.SelectToken("result").LongCount) As market
+
 
 
             If json.SelectToken("success").ToString() = "True" Then
+
+                Dim markets(json.SelectToken("result").LongCount) As market
 
                 'Iterate through every market
                 For Each current_market In json.SelectToken("result")
@@ -54,18 +56,42 @@ Public Class bittrexWrapper
                     count = count + 1
                 Next
 
+
                 Return markets
             Else
-                MsgBox("Returned false successs")
+                MsgBox("Error: " & json.SelectToken("message").ToString)
                 Return Nothing
             End If
 
         Catch ex As Exception
-            MsgBox("Error parsing markets")
+            MsgBox("Error parsing markets JSON")
             Return Nothing
         End Try
 
     End Function 'Receive all markets
+    Public Function getTicker(ByVal base As String, ByVal base2 As String)
+        Try
+            Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getticker?market=" & base & "-" & base2))
+
+            If json.SelectToken("success").ToString() = "True" Then
+
+                Dim bid As Double = Convert.ToDouble(json.SelectToken("result").SelectToken("Bid"))
+                Dim ask As Double = Convert.ToDouble(json.SelectToken("result").SelectToken("Ask"))
+                Dim last As Double = Convert.ToDouble(json.SelectToken("result").SelectToken("Last"))
+                Dim ticker As Ticker = New Ticker(bid, ask, last)
+                Return ticker
+            Else
+                MsgBox("Error: " & json.SelectToken("message").ToString)
+            End If
+        Catch ex As Exception
+            MsgBox("Error parsing Ticker JSON")
+        End Try
+
+
+    End Function 'Receive Ticker data
+
+
+
 
 
 

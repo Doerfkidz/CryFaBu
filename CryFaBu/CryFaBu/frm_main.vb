@@ -13,10 +13,11 @@ Public Class frm_main
     End Function
 
     Private Sub frm_main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+
+
         Dim wrapper As bittrexWrapper = New bittrexWrapper
-        For Each market In wrapper.getMarkets
-            MsgBox(market.ToString)
-        Next
+        MsgBox(wrapper.getTicker("BTC", "USD").ToString)
 
     End Sub
 End Class
