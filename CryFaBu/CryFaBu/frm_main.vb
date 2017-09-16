@@ -1,13 +1,22 @@
-﻿Public Class frm_main
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btn_start.Click
+﻿Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
-    End Sub
+Public Class frm_main
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+    Public Function init() As Boolean
+        Try
+            Cbox_coin.SelectedIndex = 0
 
-    End Sub
+        Catch ex As Exception
+            MsgBox("Fehler beim Initialisieren", MsgBoxStyle.Critical)
+        End Try
+    End Function
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles tbox_gewinn.TextChanged
+    Private Sub frm_main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim wrapper As bittrexWrapper = New bittrexWrapper
+        For Each market In wrapper.getMarkets
+            MsgBox(market.ToString)
+        Next
 
     End Sub
 End Class
