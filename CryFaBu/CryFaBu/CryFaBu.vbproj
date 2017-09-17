@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="bittrexWrapper.vb" />
+    <Compile Include="Currency.vb" />
     <Compile Include="frm_main.vb">
       <SubType>Form</SubType>
     </Compile>

@@ -117,7 +117,38 @@ Public Class bittrexWrapper
         End Try
     End Function 'Auftragsbuch eines Marktes holen
 
+    Public Function getCurrencies() As Currency()
+        Try
+            Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getcurrencies"))
+            Dim currencies(json.SelectToken("result").Count) As Currency
+            Dim count As Integer = 0
 
+            If json.SelectToken("success").ToString() = "True" Then
+                For Each currency In json.SelectToken("result")
+                    Dim currency_name As String = currency.SelectToken("Currency")
+                    Dim currencylong As String = currency.SelectToken("CurrencyLong")
+                    Dim minconfirmation As Integer = Convert.ToInt16(currency.SelectToken("MinConfirmation"))
+                    Dim txfee As Double = Convert.ToDouble(currency.SelectToken("TxFee"))
+                    Dim isactive As Boolean = Convert.ToBoolean(currency.SelectToken("IsActive"))
+                    Dim cointype As String = currency.SelectToken("CoinType")
+                    Dim baseaddress As String = currency.SelectToken("BaseAddress")
+                    Dim notice As String = currency.SelectToken("Notice")
+
+                    currencies(count) = New Currency(currency_name, currencylong, minconfirmation, txfee, isactive, cointype, baseaddress, notice)
+
+                    count = count + 1
+                Next
+                Return currencies
+            Else
+                MsgBox("Error: " & json.SelectToken("message").ToString())
+                Return Nothing
+            End If
+        Catch ex As Exception
+            MsgBox("Error parsing currencies JSON")
+            Return Nothing
+        End Try
+
+    End Function
 
 
 
