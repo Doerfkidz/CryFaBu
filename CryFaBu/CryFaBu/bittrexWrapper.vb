@@ -116,7 +116,6 @@ Public Class bittrexWrapper
             Return Nothing
         End Try
     End Function 'Auftragsbuch eines Marktes holen
-
     Public Function getCurrencies() As Currency()
         Try
             Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getcurrencies"))
@@ -148,7 +147,39 @@ Public Class bittrexWrapper
             Return Nothing
         End Try
 
-    End Function
+    End Function 'Währungen holen
+    Public Function getMarketHistory(ByVal market As String) As Trade()
+        Try
+            Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getmarkethistory?market=" & market))
+            Dim trades(json.SelectToken("result").Count) As Trade
+            Dim count As Integer = 0
+
+            If json.SelectToken("success").ToString() = "True" Then
+
+                For Each trade In json.SelectToken("result")
+                    Dim id As String = trade.SelectToken("Id")
+                    Dim timestamp As DateTime = Convert.ToDateTime(trade.SelectToken("TimeStamp"))
+                    Dim quantity As Double = Convert.ToDouble(trade.SelectToken("Quantity"))
+                    Dim price As Double = Convert.ToDouble(trade.SelectToken("Price"))
+                    Dim total As Double = Convert.ToDouble(trade.SelectToken("Total"))
+                    Dim filltype As String = trade.SelectToken("FillType")
+                    Dim ordertype As String = trade.SelectToken("OrderType")
+
+                    trades(count) = New Trade(id, timestamp, quantity, price, total, filltype, ordertype)
+
+                    count = count + 1
+                Next
+                Return trades
+            Else
+                MsgBox("Error: " & json.SelectToken("message").ToString())
+                Return Nothing
+            End If
+        Catch ex As Exception
+            MsgBox("Error parsing marketHistory JSON")
+            Return Nothing
+        End Try
+
+    End Function 'Markt History holen
 
 
 

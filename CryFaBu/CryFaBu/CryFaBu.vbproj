@@ -102,6 +102,7 @@
     </Compile>
     <Compile Include="bookorder.vb" />
     <Compile Include="Ticker.vb" />
+    <Compile Include="Trade.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frm_main.resx">

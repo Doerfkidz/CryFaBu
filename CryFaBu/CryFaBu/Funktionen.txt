@@ -1,10 +1,10 @@
 ﻿/public/getmarkets FERTIG
-/public/getcurrencies
+/public/getcurrencies FERTIG
 /public/getticker FERTIG
 /public/getmarketsummaries
 /public/getmarketsummary
 /public/getorderbook FERTIG
-/public/getmarkethistory
+/public/getmarkethistory FERTIG
 
 /market/buylimit
 /market/selllimit
