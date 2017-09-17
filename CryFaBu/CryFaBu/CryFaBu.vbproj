@@ -101,6 +101,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="bookorder.vb" />
+    <Compile Include="OpenOrder.vb" />
     <Compile Include="Ticker.vb" />
     <Compile Include="Trade.vb" />
   </ItemGroup>

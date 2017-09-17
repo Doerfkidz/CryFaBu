@@ -180,7 +180,6 @@ Public Class bittrexWrapper
         End Try
 
     End Function 'Markt History holen
-
     Public Function buyLimit(ByVal market As String, ByVal quantity As Double, ByVal rate As Double) As String
         Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/market/buylimit?apikey=" & apikey & "&market=" & market & "&quantity=" & quantity & "&rate=" & rate))
 
@@ -217,5 +216,47 @@ Public Class bittrexWrapper
 
     End Function
 
+
+    Public Function getOpenOrders(ByVal market As String) As OpenOrder()
+        Try
+            Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/market/getopenorders?apikey=" & apikey & "&market=" & market))
+
+            If json.SelectToken("success").ToString() = "True" Then
+                Dim count As Integer = 0
+                Dim openorders(json.SelectToken("result")) As OpenOrder
+
+                For Each openorder In json.SelectToken("result")
+                    Dim uuid As String = openorder.SelectToken("Uuid")
+                    Dim orderuuid As String = openorder.SelectToken("OrderUuid")
+                    Dim exchange As String = openorder.SelectToken("Exchange")
+                    Dim ordertype As String = openorder.SelectToken("OrderType")
+                    Dim quantity As Double = Convert.ToDouble(openorder.SelectToken("Quantity"))
+                    Dim quantityremaining As Double = Convert.ToDouble(openorder.SelectToken("QuantityRemaining"))
+                    Dim limit As Double = Convert.ToDouble(openorder.SelectToken("Limit"))
+                    Dim commissionpaid As Double = Convert.ToDouble(openorder.SelectToken("CommissionPaid"))
+                    Dim price As Double = Convert.ToDouble(openorder.SelectToken("Price"))
+                    Dim priceperunit As Double = Convert.ToDouble(openorder.SelectToken("PricePerUnit"))
+                    Dim opened As DateTime = Convert.ToDateTime(openorder.SelectToken("Opened"))
+                    Dim closed As DateTime = Convert.ToDateTime(openorder.SelectToken("Closed"))
+                    Dim cancelinitiated As Boolean = Convert.ToBoolean(openorder.SelectToken("CancelInitiated"))
+                    Dim immediateorcancel As Boolean = Convert.ToBoolean(openorder.SelectToken("ImmediateOrCancel"))
+                    Dim isconditional As Boolean = Convert.ToBoolean(openorder.SelectToken("IsConditional"))
+                    Dim condition As String = openorder.SelectToken("Condition")
+                    Dim conditiontarget As String = openorder.SelectToken("ConditionTarget")
+
+                    openorders(count) = New OpenOrder(uuid, orderuuid, exchange, ordertype, quantity, quantityremaining, limit, commissionpaid, price, priceperunit, opened, closed, cancelinitiated, immediateorcancel, isconditional, condition, conditiontarget)
+                Next
+                Return openorders
+            Else
+                MsgBox("Error: " & json.SelectToken("message").ToString())
+                Return Nothing
+            End If
+        Catch ex As Exception
+            MsgBox("Error while parsing openorder JSON")
+            Return Nothing
+        End Try
+
+
+    End Function
 
 End Class
