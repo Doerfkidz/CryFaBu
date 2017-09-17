@@ -1,0 +1,21 @@
+﻿/public/getmarkets FERTIG
+/public/getcurrencies
+/public/getticker FERTIG
+/public/getmarketsummaries
+/public/getmarketsummary
+/public/getorderbook FERTIG
+/public/getmarkethistory
+
+/market/buylimit
+/market/selllimit
+/market/cancel
+/market/getopenorders
+
+/account/getbalances
+/account/getbalance
+/account/getdepositaddress
+/account/withdraw
+/account/getorder
+/account/getorderhistory
+/account/getwithdrawalhistory
+/account/getdeposithistory

@@ -1,9 +1,14 @@
 ﻿Imports Newtonsoft.Json.Linq
 
 Public Class bittrexWrapper
+    Dim apikey As String
 
     Sub New()
 
+    End Sub 'Konstruktor/nur public API calls
+
+    Sub New(ByVal apikey_new As String)
+        apikey = apikey_new
     End Sub
     Private Function getJson(ByVal url As String) As String
 
@@ -17,13 +22,13 @@ Public Class bittrexWrapper
             Return "{" + Chr(34) + "success" + Chr(34) + ": false," + Chr(34) + "message" + Chr(34) + ":" + Chr(34) + "Error receiving JSON" + Chr(34) + "}"
         End Try
 
-    End Function 'Get json from API endpoint
+    End Function 'JSON vom API endpoint holen
     Public Function getMarkets() As market()
 
         Try
 
             Dim count As Integer = 0
-            Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getmarkets  "))
+            Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getmarkets"))
 
 
 
