@@ -181,7 +181,17 @@ Public Class bittrexWrapper
 
     End Function 'Markt History holen
 
+    Public Function buyLimit(ByVal market As String, ByVal quantity As Double, ByVal rate As Double) As String
+        Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/market/buylimit?apikey=" & apikey & "&market=" & market & "&quantity=" & quantity & "&rate=" & rate))
 
+        If json.SelectToken("success").ToString() = "True" Then
+            Return json.SelectToken("result").SelectToken("uuid").ToString()
+        Else
+            MsgBox("Error: " & json.SelectToken("message").ToString())
+            Return Nothing
+        End If
+
+    End Function
 
 
 End Class

@@ -1,8 +1,10 @@
 ﻿/public/getmarkets FERTIG
 /public/getcurrencies FERTIG
 /public/getticker FERTIG
+
 /public/getmarketsummaries
 /public/getmarketsummary
+
 /public/getorderbook FERTIG
 /public/getmarkethistory FERTIG
 
@@ -10,6 +12,8 @@
 /market/selllimit
 /market/cancel
 /market/getopenorders
+
+
 
 /account/getbalances
 /account/getbalance

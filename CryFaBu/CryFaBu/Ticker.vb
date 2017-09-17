@@ -7,6 +7,7 @@
         bid = bid_new
         ask = ask_new
         last = last_new
+
     End Sub
 
     Public Overrides Function ToString() As String

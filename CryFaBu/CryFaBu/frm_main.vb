@@ -17,6 +17,6 @@ Public Class frm_main
 
 
         Dim wrapper As bittrexWrapper = New bittrexWrapper
-        MsgBox(wrapper.getMarketHistory("BTC-DOGE")(0).id)
+        Dim btcltc As Ticker = wrapper.getTicker("BTC", "LTC")
     End Sub
 End Class
