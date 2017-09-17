@@ -73,7 +73,7 @@ Public Class bittrexWrapper
             Return Nothing
         End Try
 
-    End Function 'Receive all markets
+    End Function 'Alle Märkte holen
     Public Function getTicker(ByVal base As String, ByVal base2 As String)
         Try
             Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getticker?market=" & base & "-" & base2))
@@ -93,7 +93,7 @@ Public Class bittrexWrapper
         End Try
 
 
-    End Function 'Receive Ticker data
+    End Function 'Ticker für einen bestimmten Markt holen
     Public Function getOrderbook(ByVal market As String, ByVal type As String) As bookorder()
         Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getorderbook?market=" & market & "&type=" & type))
         Try
@@ -115,7 +115,7 @@ Public Class bittrexWrapper
             MsgBox("Error parsing Orderbook JSON")
             Return Nothing
         End Try
-    End Function 'Get Orderbook for a specific market
+    End Function 'Auftragsbuch eines Marktes holen
 
 
 
