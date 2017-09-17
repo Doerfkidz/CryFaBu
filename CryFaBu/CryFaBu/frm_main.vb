@@ -16,7 +16,6 @@ Public Class frm_main
 
 
 
-        Dim wrapper As bittrexWrapper = New bittrexWrapper
-        Dim btcltc As Ticker = wrapper.getTicker("BTC", "LTC")
+        Dim wrapper As bittrexWrapper = New bittrexWrapper()
     End Sub
 End Class

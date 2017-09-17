@@ -193,5 +193,29 @@ Public Class bittrexWrapper
 
     End Function
 
+    Public Function sellLimit(ByVal market As String, ByVal quantity As Double, ByVal rate As Double) As String
+        Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/market/selllimit?apikey=" & apikey & "&market=" & market & "&quantity=" & quantity & "&rate=" & rate))
+
+        If json.SelectToken("success").ToString() = "True" Then
+            Return json.SelectToken("result").SelectToken("uuid").ToString()
+        Else
+            MsgBox("Error: " & json.SelectToken("message").ToString())
+            Return Nothing
+        End If
+
+    End Function
+
+    Public Function cancel(ByVal uuid As String) As Boolean
+        Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/market/cancel?apikey=" & apikey & "&uuid=" & uuid))
+
+        If json.SelectToken("success").ToString() = "True" Then
+            Return True
+        Else
+            MsgBox("Error: " & json.SelectToken("message").ToString())
+            Return False
+        End If
+
+    End Function
+
 
 End Class

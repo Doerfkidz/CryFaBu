@@ -8,9 +8,9 @@
 /public/getorderbook FERTIG
 /public/getmarkethistory FERTIG
 
-/market/buylimit
-/market/selllimit
-/market/cancel
+/market/buylimit FERTIG
+/market/selllimit FERTIG
+/market/cancel FERTIG
 /market/getopenorders
 
 
