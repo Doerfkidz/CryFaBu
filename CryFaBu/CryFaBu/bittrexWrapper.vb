@@ -74,9 +74,9 @@ Public Class bittrexWrapper
         End Try
 
     End Function 'Alle Märkte holen
-    Public Function getTicker(ByVal base As String, ByVal base2 As String)
+    Public Function getTicker(ByVal market As String) As Ticker
         Try
-            Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getticker?market=" & base & "-" & base2))
+            Dim json As JObject = JObject.Parse(getJson("https://bittrex.com/api/v1.1/public/getticker?market=" & market))
 
             If json.SelectToken("success").ToString() = "True" Then
 

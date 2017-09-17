@@ -1,19 +1,16 @@
 ﻿/public/getmarkets FERTIG
 /public/getcurrencies FERTIG
 /public/getticker FERTIG
-
-/public/getmarketsummaries
-/public/getmarketsummary
-
 /public/getorderbook FERTIG
 /public/getmarkethistory FERTIG
-
 /market/buylimit FERTIG
 /market/selllimit FERTIG
 /market/cancel FERTIG
 /market/getopenorders FERTIG
 
 
+/public/getmarketsummaries
+/public/getmarketsummary
 
 /account/getbalances
 /account/getbalance
