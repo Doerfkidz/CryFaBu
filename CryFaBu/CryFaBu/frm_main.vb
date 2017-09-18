@@ -67,10 +67,20 @@ Public Class frm_main
 
     End Function
 
+    Public Sub getOpenOrders(ByVal apikey As String, ByVal coin As String)
+        Dim wrapper As bittrexWrapper = New bittrexWrapper(apikey)
+
+        For Each openorder As OpenOrder In wrapper.getOpenOrders("BTC-" & coin)
+
+        Next
+
+    End Sub
+
     Private Sub frm_main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 
     Private Sub btn_start_Click(sender As Object, e As EventArgs) Handles btn_start.Click
+
     End Sub
 End Class
