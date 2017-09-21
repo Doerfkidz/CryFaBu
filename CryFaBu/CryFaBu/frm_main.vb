@@ -3,6 +3,8 @@ Imports Newtonsoft.Json.Linq
 
 Public Class frm_main
 
+    Private uuids As List(Of String) = New List(Of String)
+
     Public Function init() As Boolean
         Try
             Cbox_coin.SelectedIndex = 0
@@ -45,7 +47,7 @@ Public Class frm_main
 
     End Function
 
-    Public Function setBuyLimit(ByVal dollar As Double, ByVal coin As String, ByVal apikey As String)
+    Public Function setBuyLimit(ByVal dollar As Double, ByVal coin As String, ByVal apikey As String) As String
         Try
             Dim wrapper As bittrexWrapper = New bittrexWrapper(apikey)
             Dim coinPrice As Double = wrapper.getTicker("BTC-" & coin).ask
@@ -67,12 +69,18 @@ Public Class frm_main
 
     End Function
 
-    Public Sub getOpenOrders(ByVal apikey As String, ByVal coin As String)
+    Public Sub getOpenOrders(ByVal apikey As String)
         Dim wrapper As bittrexWrapper = New bittrexWrapper(apikey)
 
-        For Each openorder As OpenOrder In wrapper.getOpenOrders("BTC-" & coin)
+        For Each coin In Cbox_coin.Items
 
+            For Each openorder As OpenOrder In wrapper.getOpenOrders("BTC-" & coin.Split("/")(1))
+                If uuids.Contains(openorder.uuid) Then
+                    lbox_orderbook.Items.Add("Eigenschaften") 'Muss noch festgelegt werden
+                End If
+            Next
         Next
+
 
     End Sub
 
@@ -80,7 +88,41 @@ Public Class frm_main
 
     End Sub
 
-    Private Sub btn_start_Click(sender As Object, e As EventArgs) Handles btn_start.Click
+    Private Function loaduuids() As Boolean
+        Try
 
+
+            For Each uuid In My.Settings.uuids.Split(":")
+                uuids.Add(uuid)
+            Next
+            Return True
+        Catch ex As Exception
+            MsgBox("Error loading uuids")
+            Return False
+        End Try
+
+    End Function 'Initialisieren von uuids beim Start
+
+    Private Function saveuuids() As Boolean
+        Dim uuids_settings As String = ""
+        Try
+            For Each uuid In uuids
+                uuids_settings = uuids_settings & uuid & ":"
+            Next
+
+            If uuids_settings.Length <> 0 Then
+                uuids_settings = uuids_settings.Substring(0, uuids_settings.Length - 1)
+            End If
+            My.Settings.uuids = uuids_settings
+            My.Settings.Save()
+            Return True
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        End Try
+    End Function 'uuids beim Beenden des Programmes speichern
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        getOpenOrders("asfasf")
     End Sub
 End Class

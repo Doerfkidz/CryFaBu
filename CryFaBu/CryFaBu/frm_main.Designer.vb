@@ -30,6 +30,9 @@ Partial Class frm_main
         Me.lb_dollar = New System.Windows.Forms.Label()
         Me.lb_gewinn = New System.Windows.Forms.Label()
         Me.lbox_orderbook = New System.Windows.Forms.ListBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btn_start
@@ -102,11 +105,41 @@ Partial Class frm_main
         Me.lbox_orderbook.Size = New System.Drawing.Size(364, 134)
         Me.lbox_orderbook.TabIndex = 9
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(269, 160)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 10
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(383, 160)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 11
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(327, 199)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 12
+        Me.Button3.Text = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'frm_main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(939, 419)
+        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.lbox_orderbook)
         Me.Controls.Add(Me.lb_gewinn)
         Me.Controls.Add(Me.lb_dollar)
@@ -130,4 +163,7 @@ Partial Class frm_main
     Friend WithEvents lb_dollar As Label
     Friend WithEvents lb_gewinn As Label
     Friend WithEvents lbox_orderbook As ListBox
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
 End Class
